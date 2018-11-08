@@ -1,0 +1,10 @@
+//colors
+
+$dark: rgb(100, 100, 185);
+$light: rgb(123, 178, 240);
+$highlight: rgb(124, 200, 242);
+$transition: linear-gradient(to top, black, white);
+
+h1 {color:$dark}
+body {color:$highlight}
+button{background:$transition; color:$highlight;}
