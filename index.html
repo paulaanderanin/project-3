@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:url"                content="https://localhost:8000/" /><!-- I would replace with the actual url -->
+  <meta property="og:type"               content="restaurant.restaurant" />
+  <meta property="og:title"              content="New York City Restaurant Directory" />
+  <meta property="og:description"        content="List of restaurant reviews in New York City" />
+  <meta property="og:image"              content="img/restaurantreviews.jpg" />
+  <meta name="theme-color" content="#252831"/>
+
+  <title>Restaurant Reviews</title>
+  <script src="js/idb.js"></script>
+
+</head>
+
+<body>
+  <header>
+    <nav>
+      <h1><a href="/">NEW Restaurant Reviews</a></h1>
+    </nav>
+  </header>
+
+  <main id="maincontent">
+    <section id="map-container" >
+      <button class="skip-link" aria-label="Skip Map" tabindex="-1"><a href="#filter-options">Skip Map</a></button>
+      <div id="map" role="application" aria-label="Map with restaurants" tabindex="-1"></div>
+    </section>
+    <section class="align-center" id="filter-options" aria-label="filter options">
+      <div class="filter-options">
+        <h2>Filter Results</h2>
+        <select id="neighborhoods-select" name="neighborhoods" role="combobox" aria-label="Neighboorhoods submenu" aria-haspopup="listbox" onchange="updateRestaurants()">
+          <option value="all">All Neighborhoods</option>
+        </select>
+        <select id="cuisines-select" name="cuisines" role="combobox" aria-label="Cuisines submenu" aria-haspopup="listbox" onchange="updateRestaurants()">
+          <option value="all">All Cuisines</option>
+        </select>
+      </div>
+      <ul id="restaurants-list" aria-labelledby="restaurant-list"></ul>
+    </section>
+  </main>
+
+  <script type="application/javascript" charset="utf-8" src="js/dbhelper.js"></script>
+  <script type="application/javascript" charset="utf-8" src="js/main.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGIFXw3x6PBYxDRFJZOrK7mL9EF1VS1ZE&libraries=places&callback=initMap"></script>
+  <!-- picturefill
+  <script>
+      // Picture element HTML5 shiv
+      document.createElement( "picture" );
+  </script>
+  <script src="js/picturefill.js"></script> -->
+  <!-- IndexedDB -->
+  <!-- Service Worker -->
+  <script src="js/app.js" async></script>
+
+
+  <footer id="footer">
+    Copyright (c) 2017 <a href="/" role="link" aria-label="home page link"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
+  </footer>
+
+</body>
+
+</html>
