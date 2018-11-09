@@ -219,16 +219,28 @@ static altTag(restaurant){
     then(response => {
       if (!response.ok) return Promise.reject("reviews could not be fetched from network");
       return response.json();
-    }).then(fetchedReviews =>{
+    }).then(reviews =>{
       //if reviews could not be fetched from network:
       //TODO: store reviews on idb.
-      return fetchedReviews;
+      dbPromise.then(db => {
+        var tx = db.transaction('reviews', 'readwrite');
+        var store = tx.objectStore('reviews');
+        reviews.forEach(reviews => {
+          store.put (review);
+        })
+        callback(null, reviews);
+
+      });
+      return reviews;
     }).catch(networkError => {
-      //if reviews couldn't be fetched from network:
-      //TO DO: try to get reviews from idb.
-      console.log(`${networkError}`);
-      return null; //return null to handle error, as though there are no reviews.
+      dbPromise.then(function(db){
+        var store = db.transaction('reviews', 'readwrite').objectStore('reviews');
+        return store.getAll();
+      }).then(function(data){
+        callback(null, data);
+      });
+
     });
   }
 
-}
+}//class
