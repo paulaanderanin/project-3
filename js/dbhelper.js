@@ -1,11 +1,3 @@
-/**
- * Common database helper functions.
- */
- /*
- var dbPromise = idb.open('restdb', 1, function(upgradeDb){
- 	var store = upgradeDb.createObjectStore('restaurants', {keyPath: 'id'});
- });*/
-
  var dbPromise = idb.open('restdb', 2, function(upgradeDb) {
   switch (upgradeDb.oldVersion) {
     case 0:
@@ -253,63 +245,11 @@ static fetchReviewsByRestaurantId(restaurant_id){
     dbPromise.then(db => {
       return db.transaction('reviews')
       .objectStore('reviews').getAll();
+      console.log('catch error');
     }).then (allReviews => console.log (allReviews));
       console.log(`${networkError}`);
-      return null; //return null to handle error ,as though there are no reviews.
+      //callback (null, reviews) ; //return null to handle error ,as though there are no reviews.
+      return reviews;
   });
 }
-
-/*
-static fetchReviewsByRestaurantId(restaurant_id){
-    return fetch(`${DBHelper.API_URL}?restaurant_id=${restaurant_id}`).
-    then(response => {
-      if (!response.ok) return Promise.reject("reviews could not be fetched from network");
-      return response.json();
-    }).then(fetchedReviews =>{
-      //if reviews could not be fetched from network:
-      //TODO: store reviews on idb.
-
-      return fetchedReviews;
-    }).catch(networkError => {
-      //if reviews couldn't be fetched from network:
-      //TO DO: try to get reviews from idb.
-      //getting all
-      dbPromise.then(db => {
-        return db.transaction('reviews')
-        .objectStore('reviews').getAll();
-      }).then (allReviews => console.log (allReviews));
-
-      console.log(`${networkError}`);
-      return null; //return null to handle error, as though there are no reviews.
-    });
-  }*/
-
-
-  /*
-static fetchReviewsByRestaurantId(restaurant_id){
-    return fetch(`${DBHelper.API_URL}?restaurant_id=${restaurant_id}`).
-    then(response => {
-      if (!response.ok) return Promise.reject("reviews could not be fetched from network");
-      return response.json();
-    }).then(fetchedReviews =>{
-      //if reviews could not be fetched from network:
-      //TODO: store reviews on idb.
-
-      return fetchedReviews;
-    }).catch(networkError => {
-      //if reviews couldn't be fetched from network:
-      //TO DO: try to get reviews from idb.
-      //getting all
-      dbPromise.then(db => {
-        return db.transaction('reviews')
-        .objectStore('reviews').getAll();
-      }).then (allReviews => console.log (allReviews));
-
-      console.log(`${networkError}`);
-      return null; //return null to handle error, as though there are no reviews.
-    });
-  }*/
-
-
-
 }
